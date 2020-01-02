@@ -33,6 +33,13 @@ ArrayDeque 是一个基于循环数组实现的双端队列，可以作为队列
 ```
 如果原先容量小于64，扩容到原来的两倍，如果大于64，扩容原来的50%    
 如果扩容增加的容量不满足needed值或者数组大小溢出(大于Integer.MAX_VALUE-8)时的处理： 
+minCapacity = oldCapacity + needed  
+1. minCapacity 大于设置的最大容量  
+如果minCapacity大于Integer可索引的最大容量(Integer.MAX_VALUE)，抛出异常  
+如果minCapacity大于设定的最大容量，但仍在Integer可索引范围内，容量设置为Integer.MAX_VALUE  
+
+2. neede大于jump  
+按照needed的值设置容量
 ``` java
     /** Capacity calculation for edge conditions, especially overflow. */
     private int newCapacity(int needed, int jump) {
