@@ -10,3 +10,10 @@ ArrayDeque 是一个基于循环数组实现的双端队列，可以作为队列
 
 #### 默认数组大小为16，但初始的数组大小element.length为16+1, 原因是tail指向将要出入对象的索引，
 
+#### 实现了Deque,Queue,Stack对应的方法
+包含Deque，queue 和stack的方法
+双端队列：addFirst,offerFirst  getFirst, pollFirst  peekFirst  及对应的Last方法
+单端队列：add,offer   get, poll  peek
+栈： push   pop   peek
+
+####
