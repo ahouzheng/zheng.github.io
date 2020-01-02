@@ -52,7 +52,6 @@ minCapacity = oldCapacity + needed
         }
         if (needed > jump)
             return minCapacity;
-
         return (oldCapacity + jump - MAX_ARRAY_SIZE < 0)
             ? oldCapacity + jump
             : MAX_ARRAY_SIZE;
