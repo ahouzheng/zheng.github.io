@@ -34,14 +34,33 @@ ArrayDeque 是一个基于循环数组实现的双端队列，可以作为队列
 如果原先容量小于64，扩容到原来的两倍，如果大于64，扩容原来的50%    
 如果扩容增加的容量不满足needed值或者数组大小溢出(大于Integer.MAX_VALUE-8)时的处理： 
 minCapacity = oldCapacity + needed  
+1. minCapacity 大于设置的最大容量
 如果minCapacity大于Integer可索引的最大容量(Integer.MAX_VALUE)，抛出异常  
 如果minCapacity大于设定的最大容量，但仍在Integer可索引范围内，容量设置为Integer.MAX_VALUE  
 
+2. neede大于jump
+按照needed的值设置容量
 
-如果扩展增加的容量不满足needed，则按needed+oldCapacity进行扩容，同时考虑溢出，如果新的容量有溢出，报错  
-如果needed小于扩容后的容量，返回
-
-
+``` java
+    /** Capacity calculation for edge conditions, especially overflow. */
+    private int newCapacity(int needed, int jump) {
+        final int oldCapacity = elements.length, minCapacity;
+        if ((minCapacity = oldCapacity + needed) - MAX_ARRAY_SIZE > 0) {
+            if (minCapacity < 0)
+                throw new IllegalStateException("Sorry, deque too big");
+            return Integer.MAX_VALUE;
+        }
+        if (needed > jump)
+            return minCapacity;
+            
+        /*   疑问 此处如果不等式返回true 那么执行newCapacity的原因是 jump<needed  这个情况在上面已经处理
+            不会访问到这一句  那这一部分的意义在哪
+        */
+        return (oldCapacity + jump - MAX_ARRAY_SIZE < 0)
+            ? oldCapacity + jump
+            : MAX_ARRAY_SIZE;
+    }
+```
 
 #### 默认数组大小为16，但初始的数组大小element.length为16+1, 原因是tail指向将要出入对象的索引，
 
