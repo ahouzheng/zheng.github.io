@@ -40,7 +40,6 @@ minCapacity = oldCapacity + needed
 
 2. neede大于jump
 按照needed的值设置容量
-
 ``` java
     /** Capacity calculation for edge conditions, especially overflow. */
     private int newCapacity(int needed, int jump) {
