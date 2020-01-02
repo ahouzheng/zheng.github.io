@@ -6,7 +6,31 @@ Layout: post
 
 ArrayDeque 是一个基于循环数组实现的双端队列，可以作为队列和栈使用，作为队列和栈使用时，由于数组可以**根据索引直接寻址**，并且没有把**对象包装成链表节点的开销**，性能要优于LinkedList。
 
-#### head属性指向队列的头部对象索引，tail指向将要插入对象的尾部索引。队列为空时，head与tail重合
+#### head属性指向队列的头部对象索引，tail指向将要插入对象的尾部索引。队列为空时，head与tail重合. 插入对象过程中，如果head与tail重合，进行扩容，对应grow() 方法
+
+``` java
+    private void grow(int needed) {
+        // overflow-conscious code
+        final int oldCapacity = elements.length;
+        int newCapacity;
+        // Double capacity if small; else grow by 50%
+        int jump = (oldCapacity < 64) ? (oldCapacity + 2) : (oldCapacity >> 1);
+        if (jump < needed
+            || (newCapacity = (oldCapacity + jump)) - MAX_ARRAY_SIZE > 0)
+            newCapacity = newCapacity(needed, jump);
+        final Object[] es = elements = Arrays.copyOf(elements, newCapacity);
+        // Exceptionally, here tail == head needs to be disambiguated
+        if (tail < head || (tail == head && es[head] != null)) {
+            // wrap around; slide first leg forward to end of array
+            int newSpace = newCapacity - oldCapacity;
+            System.arraycopy(es, head,
+                             es, head + newSpace,
+                             oldCapacity - head);
+            for (int i = head, to = (head += newSpace); i < to; i++)
+                es[i] = null;
+        }
+    }
+```
 
 #### 默认数组大小为16，但初始的数组大小element.length为16+1, 原因是tail指向将要出入对象的索引，
 
@@ -14,6 +38,6 @@ ArrayDeque 是一个基于循环数组实现的双端队列，可以作为队列
 包含Deque，queue 和stack的方法
 双端队列：addFirst,offerFirst  getFirst, pollFirst  peekFirst  及对应的Last方法
 单端队列：add,offer   get, poll  peek
-栈： push   pop   peek
+栈： push   pop   peek  
 
 ####
