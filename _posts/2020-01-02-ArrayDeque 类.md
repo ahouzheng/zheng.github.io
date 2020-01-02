@@ -33,8 +33,10 @@ ArrayDeque 是一个基于循环数组实现的双端队列，可以作为队列
 ```
 如果原先容量小于64，扩容到原来的两倍，如果大于64，扩容原来的50%    
 如果扩容增加的容量不满足needed值或者数组大小溢出(大于Integer.MAX_VALUE-8)时的处理： 
-如果needed值 扩展的容量(Integer.MAX_VALUE)仍溢出， 异常
-否则按最大容量扩展(Integer.MAX_VALUE)
+minCapacity = oldCapacity + needed  
+如果minCapacity大于Integer可索引的最大容量(Integer.MAX_VALUE)，抛出异常  
+如果minCapacity大于设定的最大容量，但仍在Integer可索引范围内，容量设置为Integer.MAX_VALUE  
+
 
 如果扩展增加的容量不满足needed，则按needed+oldCapacity进行扩容，同时考虑溢出，如果新的容量有溢出，报错  
 如果needed小于扩容后的容量，返回
