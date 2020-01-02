@@ -53,7 +53,7 @@ minCapacity = oldCapacity + needed
             return minCapacity;
         return (oldCapacity + jump - MAX_ARRAY_SIZE < 0)
             ? oldCapacity + jump
-            : MAX_ARRAY_SIZE;
+            : MAX_ARRAY_SIZE;   // 对应的情况是 oldCapacity + jump - MAX_ARRAY_SIZE==0
     }
 ```
 
