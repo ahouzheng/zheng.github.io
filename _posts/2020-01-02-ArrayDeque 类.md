@@ -52,10 +52,7 @@ minCapacity = oldCapacity + needed
         }
         if (needed > jump)
             return minCapacity;
-            
-        /*   疑问 此处如果不等式返回true 那么执行newCapacity的原因是 jump<needed  这个情况在上面已经处理
-            不会访问到这一句  那这一部分的意义在哪
-        */
+
         return (oldCapacity + jump - MAX_ARRAY_SIZE < 0)
             ? oldCapacity + jump
             : MAX_ARRAY_SIZE;
