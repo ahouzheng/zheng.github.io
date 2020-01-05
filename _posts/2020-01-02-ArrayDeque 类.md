@@ -61,8 +61,8 @@ minCapacity = oldCapacity + needed
 
 #### 实现了Deque,Queue,Stack对应的方法
 包含Deque，queue 和stack的方法
-双端队列：addFirst,offerFirst  getFirst, pollFirst  peekFirst  及对应的Last方法
-单端队列：add,offer   get, poll  peek
-栈： push   pop   peek  
+双端队列：addFirst,offerFirst  getFirst, pollFirst  peekFirst  及对应的Last方法  
+单端队列：add,offer   get, poll  peek  
+栈： push   pop   peek    
 
 ####
